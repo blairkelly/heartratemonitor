@@ -11,17 +11,13 @@
 #define HRMI_I2C_ADDR      127
 #define HRMI_HR_ALG        1   // 1= average sample, 0 = raw sample
 
-int pp_nd = 8;
-
 void setup(){
-  pinMode(pp_nd, OUTPUT);
-  digitalWrite(pp_nd, HIGH);
-
   setupHeartMonitor(HRMI_HR_ALG);
   Serial.begin(57600);
 }
 
 void loop(){
+
   int heartRate = getHeartRate();
   Serial.println(heartRate);
 
