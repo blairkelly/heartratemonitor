@@ -13,7 +13,6 @@ int pp_3vr = 13;
 int pp_xb = 6;
 int pp_gps = 7;
 int pp_nd = 8;
-int pp_hrm = 9;
 
 int pin_temp = 5; //DS18S20 Signal pin on digital 5
 //Temperature chip i/o
