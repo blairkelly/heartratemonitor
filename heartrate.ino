@@ -41,12 +41,12 @@ void setup() {
   pinMode(blueled, OUTPUT);
   pinMode(redled, OUTPUT);
 
-  ledsw(blueled, ledmaxpwr);
+  ledsw(blueled, 0);
 
   pwrsw(pp_3vr, HIGH);
-  pwrsw(pp_xb, LOW);
+  pwrsw(pp_xb, HIGH);
   pwrsw(pp_gps, HIGH);
-  pwrsw(pp_nd, HIGH);
+  pwrsw(pp_nd, LOW);
 
   //let items boot up and then initialize
   Serial.println("Delay to init...");
@@ -78,14 +78,13 @@ void loop() {
 
     if(gps_line_count > 4 && lastchar == 10) {
       float temperature = getTemp();
-      float batval = (((float)analogRead(pin_battery) / 1023.00) * 5.0) * 3.0; //number of volts going into analog pin
+      float batval = getbattery();
       
       Serial.println(" ");
       Serial.print("Temp: ");
       Serial.print(temperature);
       Serial.print(", Batt: ");
       Serial.print(batval);
-      Serial.println(" ");
       Serial.println(" ");
 
       gps_line_count = 0;
@@ -101,7 +100,6 @@ void loop() {
 
 
 
-
 void ledsw(int sled, int pwr) {
   //sled is pin of desired led
   digitalWrite(sled, pwr);
@@ -109,12 +107,14 @@ void ledsw(int sled, int pwr) {
 void pwrsw(int spin, boolean tostate) {
   digitalWrite(spin, tostate);
 }
-void gettemp() {
 
+float getbattery() {
+  return (((float)analogRead(pin_battery) / 1023.00) * 5.0) * 3.0; //number of volts going into analog pin
 }
-void getbattery() {
 
-}
+/********************/
+/*TEMPERATURE SENSOR*/
+/********************/
 float getTemp(){
   //returns the temperature from one DS18S20 in DEG Celsius
 
