@@ -1,29 +1,29 @@
-//Arduino 1.0+ Compatible only
-//Arduino 1.0+ Compatible only
-//Arduino 1.0+ Compatible only
-
-// Code to retrieve heartrate information from the Polar Heart Rate Monitor Interface via I2C
-// Part: http://www.sparkfun.com/products/8661
-// Article:  http://bildr.org/2011/08/heartrate-arduino/
-
 #include "Wire.h"
 
 #define HRMI_I2C_ADDR      127
 #define HRMI_HR_ALG        1   // 1= average sample, 0 = raw sample
 
-void setup(){
-  setupHeartMonitor(HRMI_HR_ALG);
+
+void setup() {
   Serial.begin(57600);
+  Serial.println(" ");
+  
+  setupHeartMonitor(HRMI_HR_ALG);
+  delay(100);
+  Serial.println("Done init.");
 }
 
-void loop(){
-
+void loop() {
   int heartRate = getHeartRate();
-  Serial.println(heartRate);
 
-  delay(1000); //just here to slow down the checking to once a second
+  Serial.print("HR: ");
+  Serial.print(heartRate);
+  Serial.println(" ");
+
+  delay(1000);
 }
 
+//HEART RATE MONITOR
 void setupHeartMonitor(int type){
   //setup the heartrate monitor
   Wire.begin();
